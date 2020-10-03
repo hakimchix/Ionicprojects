@@ -1,0 +1,8 @@
+{
+  "appId": "com.pattan.portail",
+  "appName": "pattanportail",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}

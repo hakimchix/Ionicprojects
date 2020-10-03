@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar> <ion-back-button text="Home" defaultHref="home"></ion-back-button>
+    <ion-title>tasks</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-button color="success"  (click)="gettasks()">get  all tasks</ion-button>
+  <ion-button color="primary" (click)="getopentask(false)">get opened tasks</ion-button>
+  <ion-button color="primary" (click)="getopentask(true)">get close tasks</ion-button>
+  
+  <ion-list>
+
+    <ng-container *ngIf="!tasks || tasks.length == 0">
+      <div *ngFor="let n of [0,1,2]" padding>
+        <ion-skeleton-text>{{n}}</ion-skeleton-text>
+        <p>
+          <ion-skeleton-text class="fake-skeleton"></ion-skeleton-text>
+        </p>
+      </div>
+    </ng-container>
+ 
+    <ion-item-sliding *ngFor="let item of tasks">
+      <ion-item [color]=" priority_color(item.priority)" lines="inset" button [href]="['task-detail/' + item.id]">
+      <ion-note>Task Name</ion-note>  <ion-label>
+          {{ item.task}}    </ion-label> <ion-label>
+            <ion-note color="dark">Date of Creation :</ion-note>
+
+          <p>{{ item.createdAt | date:'short' }}</p>
+        </ion-label>
+        <ion-note color="dark">priority:</ion-note>
+        {{ item.priority }}
+        <ion-item  [color]=" priority_color(item.priority)" slot="start">
+        
+       <ion-item  [color]=" priority_color(item.priority)">  <ion-note color="dark">Colsed:</ion-note>
+        <ion-checkbox id="checkbox" [(ngModel)]="item.closed" disabled=true> </ion-checkbox>
+      </ion-item>
+      </ion-item>
+      </ion-item>
+    <ion-item>
+      <ion-item>
+      
+      </ion-item>
+        
+        </ion-item>
+       
+      <ion-item-options >
+         
+        <ion-item-option  (click)="remove(item.id)" color="danger" expandable=true>
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+          
+        </ion-item-option>
+        
+      </ion-item-options>
+      <ion-item-options side="start">
+        <ion-item-option (click)="close(item)"  color="success" expandable=true type="button">
+        Close
+        </ion-item-option>
+          <ion-item-option (click)="open(item)"  color="danger"  expandable=true type="button">
+           Open
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+ 
+  </ion-list>
+ 
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/task-detail" routerDirection="forward">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+ 
+
+</ion-content>

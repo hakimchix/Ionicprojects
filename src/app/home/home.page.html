@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-label *ngIf="curentuser">wellcome {{curentuser}}</ion-label>
+  <ion-button color="warning" expand="block" routerLink="/raport" routerDirection="forward">
+    rapports
+  </ion-button>
+ <br> <br>
+  <ion-button color="danger" expand="block" routerLink="/pocket" routerDirection="root">
+    Pocket
+  </ion-button>
+  <br> <br>
+  <ion-button color="secondary" expand="block" routerLink="/tasks" routerDirection="root">
+    Tasks
+  </ion-button><br> <br>
+  <ion-button color="primary" expand="block" routerLink="/contact" routerDirection="root">
+    Contacts
+  </ion-button>
+  
+ 
+
+</ion-content>
