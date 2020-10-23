@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tasks"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
+<ion-content >
+
+  <ion-list  >
+  
+    <ion-item> <label for="">id :</label>
+      <ion-input required type="text" placeholder="Task" [(ngModel)]="taskId"></ion-input>
+    </ion-item>
+    <ion-item> <label for="">Name :</label>
+      <ion-input required type="text" placeholder="Task" [(ngModel)]="task.task "></ion-input>
+    </ion-item>
+    <ion-item> 
+      <label  color="danger" for=""> Priorite :</label>
+  
+      <ion-input required type="number" placeholder="Priority" [(ngModel)]="task.priority"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon  name="alarm-outline"></ion-icon> <label for=""> Creat AT:</label> 
+      <ion-input type="date" value ="number" placeholder="created at" [(ngModel)]="task.createdAt  "></ion-input>
+    </ion-item>
+    <ion-item>
+      <label color="primary" for="">Closed AT:</label>
+      <ion-input type="date"  value="number " placeholder="Priority" [(ngModel)]="task.closedAt"></ion-input>
+    </ion-item>
+    <ion-item>
+      <label for=""></label><span>Closed :</span>
+    
+      <ion-checkbox id="checkbox" [(ngModel)]="task.closed"></ion-checkbox>
+    </ion-item>
+   
+  </ion-list>
+  <ion-button expand="full" (click)="saveTodo(task)">Save</ion-button>
+  <ion-button expand="full" (click)="removeTask(taskId)" color="danger"  >Delete</ion-button>
+</ion-content>

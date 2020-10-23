@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>home</ion-title>
+    <ion-avatar slot="start" padding>
+      
+    </ion-avatar>
+   
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item-divider sticky=false>
+    <ion-label color="primary" *ngIf="curentuser">Wellcome {{curentuser.displayName}}</ion-label>
+  </ion-item-divider>
+  
+  <ion-button color="warning"  routerLink="/rapports" routerDirection="forward">
+    Rapports
+  </ion-button>
+  <ion-button color="danger"  routerLink="/profile" routerDirection="root">
+   Profile </ion-button>
+ 
+  <ion-button color="dark"  routerLink="/raport" routerDirection="forward">
+    rapports
+  </ion-button>
+
+  <ion-button color="danger"  routerLink="/pocket" routerDirection="root">
+    Pocket
+  </ion-button>
+ 
+  <ion-button color="secondary"  routerLink="/tasks" routerDirection="root">
+    Tasks
+  </ion-button>
+  <ion-button color="primary"  routerLink="/contact" routerDirection="root">
+    Contacts
+  </ion-button>
+  <ion-button color="tertiary"  routerLink="/planing" routerDirection="root">
+    Planing
+  </ion-button>
+  <ion-item-divider>
+    <ion-label color="primary">
+     Messenger
+    </ion-label>
+  </ion-item-divider>
+  <ion-item *ngFor="let usr of usersList" >
+    <ion-item *ngIf="usr.name!=curentuser.displayName"  (click)="openChat(usr)">
+    <ion-avatar slot="start">
+      <img [src]="curentuser.photoURL">
+    </ion-avatar>
+    <ion-label >
+      <strong>{{ usr?.name }}</strong>
+      <p>See, my chat</p>
+    </ion-label>
+    <div>
+        <p no-margin gray-time>{{ api.formatAMPM(now) }}</p>
+    </div>
+  </ion-item>
+</ion-item>
+<ion-item *ngIf="!usersList">
+  <ion-avatar slot="start">
+    <ion-skeleton-text animated></ion-skeleton-text>
+  </ion-avatar>
+  <ion-label>
+    <h3>
+      <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+    </h3>
+    <p>
+      <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+    </p>
+  </ion-label>
+</ion-item>
+ 
+
+</ion-content>

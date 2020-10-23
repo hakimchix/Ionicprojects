@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "123684788481",
+    "firebase_url": "https://pattanapi1.firebaseio.com",
+    "project_id": "pattanapi1",
+    "storage_bucket": "pattanapi1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123684788481:android:621a5f1497f5d27261a300",
+        "android_client_info": {
+          "package_name": "com.pattan.portail"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "123684788481-r5b3u66do11v5ckdfpm8i80sbre7tvbm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfhPo7_yijoGYpd6-kAmegjpF8UtnCq6E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "123684788481-r5b3u66do11v5ckdfpm8i80sbre7tvbm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

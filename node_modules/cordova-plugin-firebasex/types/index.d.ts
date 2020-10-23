@@ -1,4 +1,4 @@
-interface IChannelOptions {
+export interface IChannelOptions {
     id: string
     name?: string
     description?: string
@@ -11,7 +11,7 @@ interface IChannelOptions {
     visibility?: -1 | 0 | 1
 }
 
-interface FirebasePlugin {
+export interface FirebasePlugin {
     getId(
         success: (value: string) => void,
         error: (err: string) => void
@@ -137,6 +137,11 @@ interface FirebasePlugin {
         phoneNumber: string,
         timeOutDuration: number,
         fakeVerificationCode?: string
+    ): void
+    setLanguageCode(
+        lang: string,
+        success?: () => void,
+        error?: (err: string) => void
     ): void
     createUserWithEmailAndPassword(
         email: string,

@@ -1,0 +1,62 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>Docwallet</ion-title><ion-back-button text="Home" defaultHref="home"></ion-back-button>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <ion-item-divider>
+   
+  
+  
+    <ion-list>
+      <ion-list-header>
+        <ion-label>
+         Catgory Selection
+        </ion-label>
+        
+      </ion-list-header>
+     
+       
+      <ion-item>
+        <ion-label>Documents Classifiction</ion-label>
+        <ion-select (ionChange)="onSelected($event)" placeholder="Select One">
+          <ion-select-option value="Preformat">Preformat</ion-select-option>
+          <ion-select-option value="Manuel">Manuel</ion-select-option>
+          <ion-select-option value="Accounting">Accounting</ion-select-option>
+          <ion-select-option value="Administratif">Administratif</ion-select-option>
+          <ion-select-option value="BPlan">BPlan</ion-select-option>
+          <ion-select-option value="others">others</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-button color='warning'><input   (change)="onFileSelected($event)" id="file" type='file' /><label> <ion-icon name="document-outline"></ion-icon></label></ion-button>
+      <ion-button   slot='center' (click)='uploadfile()'><label>upload</label><ion-icon name="cloud-upload"></ion-icon></ion-button><br><br>
+      <ion-progress-bar color='success'  value={{selectedFile.loadbyte}} buffer="1">TotalByte</ion-progress-bar>
+    </ion-list>
+   
+  </ion-item-divider >
+  <ion-item-divider  >
+    <ion-item class='div1'>
+  <ion-list  >
+    <ion-button color='danger' *ngIf='index>-1'   (click)='removefile(index)'>Delete </ion-button>
+    <ion-label>list of items in wallet</ion-label>
+    <ion-button (click)='loadwallet("wallet")' *ngIf='showparent' size='small' >  <ion-icon name="arrow-undo-outline"></ion-icon></ion-button>
+  <ion-item *ngFor="let item of walet" >
+    
+    <ion-item *ngIf='item.type ==="file"' button (click)='indexselected(walet.indexOf(item))'  > 
+   <ion-checkbox  slot="start" (click)='indexselected(walet.indexOf(item))' [value]='walet.indexOf(item)'> </ion-checkbox>
+  
+     
+    <ion-icon slot="end"  *ngIf='item.type ==="file"' name="document-outline"></ion-icon>{{item.name}} 
+  </ion-item>
+    <ion-item detail   *ngIf='item.type ==="folder"' button (click)='openfolder(walet.indexOf(item))' class='div2'> 
+       
+    
+   <ion-icon  slot="start"  name="folder-open-outline" > </ion-icon>{{item.name}} 
+  </ion-item>
+   
+  </ion-item>
+  </ion-list></ion-item>
+  </ion-item-divider>
+  
+  </ion-content>

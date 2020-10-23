@@ -92,44 +92,48 @@ static NSMutableDictionary* firestoreListeners;
 
 // Dynamic actions from pn-actions.json
 - (void)setActionableNotifications {
-    
-    // Parse JSON
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"pn-actions" ofType:@"json"];
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+    @try {
+        // Parse JSON
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"pn-actions" ofType:@"json"];
+        NSData *data = [NSData dataWithContentsOfFile:path];
+        if(data == nil) return;
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
 
-    // Assign actions for categories
-    NSMutableSet *categories = [[NSMutableSet alloc] init];
-    NSArray *actionsArray = [dict objectForKey:@"PushNotificationActions"];
-    for (NSDictionary *item in actionsArray) {
-        NSMutableArray *buttons = [NSMutableArray new];
-        NSString *category = [item objectForKey:@"category"];
+        // Assign actions for categories
+        NSMutableSet *categories = [[NSMutableSet alloc] init];
+        NSArray *actionsArray = [dict objectForKey:@"PushNotificationActions"];
+        for (NSDictionary *item in actionsArray) {
+            NSMutableArray *buttons = [NSMutableArray new];
+            NSString *category = [item objectForKey:@"category"];
 
-        NSArray *actions = [item objectForKey:@"actions"];
-        for (NSDictionary *action in actions) {
-            NSString *actionId = [action objectForKey:@"id"];
-            NSString *actionTitle = [action objectForKey:@"title"];
-            UNNotificationActionOptions options = UNNotificationActionOptionNone;
-            
-            id mode = [action objectForKey:@"foreground"];
-            if (mode != nil && (([mode isKindOfClass:[NSString class]] && [mode isEqualToString:@"true"]) || [mode boolValue])) {
-                options |= UNNotificationActionOptionForeground;
+            NSArray *actions = [item objectForKey:@"actions"];
+            for (NSDictionary *action in actions) {
+                NSString *actionId = [action objectForKey:@"id"];
+                NSString *actionTitle = [action objectForKey:@"title"];
+                UNNotificationActionOptions options = UNNotificationActionOptionNone;
+                
+                id mode = [action objectForKey:@"foreground"];
+                if (mode != nil && (([mode isKindOfClass:[NSString class]] && [mode isEqualToString:@"true"]) || [mode boolValue])) {
+                    options |= UNNotificationActionOptionForeground;
+                }
+                id destructive = [action objectForKey:@"destructive"];
+                if (destructive != nil && (([destructive isKindOfClass:[NSString class]] && [destructive isEqualToString:@"true"]) || [destructive boolValue])) {
+                    options |= UNNotificationActionOptionDestructive;
+                }
+                
+                [buttons addObject:[UNNotificationAction actionWithIdentifier:actionId
+                    title:NSLocalizedString(actionTitle, nil) options:options]];
             }
-            id destructive = [action objectForKey:@"destructive"];
-            if (destructive != nil && (([destructive isKindOfClass:[NSString class]] && [destructive isEqualToString:@"true"]) || [destructive boolValue])) {
-                options |= UNNotificationActionOptionDestructive;
-            }
-            
-            [buttons addObject:[UNNotificationAction actionWithIdentifier:actionId
-                title:NSLocalizedString(actionTitle, nil) options:options]];
+
+            [categories addObject:[UNNotificationCategory categoryWithIdentifier:category
+                        actions:buttons intentIdentifiers:@[] options:UNNotificationCategoryOptionNone]];
         }
 
-        [categories addObject:[UNNotificationCategory categoryWithIdentifier:category
-                    actions:buttons intentIdentifiers:@[] options:UNNotificationCategoryOptionNone]];
+        // Initialize categories
+        [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:categories];
+    }@catch (NSException *exception) {
+        [self handlePluginExceptionWithoutContext:exception];
     }
-
-    // Initialize categories
-    [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:categories];
 }
 
 // @override abstract
@@ -534,6 +538,16 @@ static NSMutableDictionary* firestoreListeners;
                 [self handlePluginExceptionWithContext:exception :command];
             }
         }];
+    }@catch (NSException *exception) {
+        [self handlePluginExceptionWithContext:exception :command];
+    }
+}
+
+- (void)setLanguageCode:(CDVInvokedUrlCommand *)command {
+    NSString* lang = [command.arguments objectAtIndex:0];
+    @try {
+         [FIRAuth auth].languageCode = lang;
+         NSLog(@"Language code setted to %@!", lang);
     }@catch (NSException *exception) {
         [self handlePluginExceptionWithContext:exception :command];
     }
@@ -1224,6 +1238,8 @@ static NSMutableDictionary* firestoreListeners;
 - (void)setConfigSettings:(CDVInvokedUrlCommand*)command {
     [self.commandDelegate runInBackground:^{
         @try {
+            FIRRemoteConfig* remoteConfig = [FIRRemoteConfig remoteConfig];
+            
             FIRRemoteConfigSettings* settings = [[FIRRemoteConfigSettings alloc] init];
             
             if([command.arguments objectAtIndex:0] != [NSNull null]){
@@ -1233,6 +1249,9 @@ static NSMutableDictionary* firestoreListeners;
             if([command.arguments objectAtIndex:1] != [NSNull null]){
                 settings.minimumFetchInterval = [[command.arguments objectAtIndex:1] longValue];
             }
+            
+            remoteConfig.configSettings = settings;
+            
             [self sendPluginSuccess:command];
         }@catch (NSException *exception) {
             [self handlePluginExceptionWithContext:exception :command];

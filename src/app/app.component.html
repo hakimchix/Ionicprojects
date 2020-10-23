@@ -1,0 +1,26 @@
+<ion-app >
+  <ion-split-pane color="tertiary" contentId="main-content">
+    <ion-menu  contentId="main-content" type="push">
+      <ion-content color="tertiary">
+    
+
+        <ion-list color="tertiary" id="inbox-list">
+          <ion-list-header color="secondary">Pattan Portail</ion-list-header>
+          <ion-note   color="success">___  Menu  ___</ion-note>
+       
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+            <ion-item *ngIf="p.en"   (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i" color="tertiary" >
+              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+              <ion-label color="light" >{{ p.title }}</ion-label>
+           
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list><br>
+         <br>
+         <ion-label  color="light" >_____In God We Trust</ion-label>
+       
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

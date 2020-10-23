@@ -1,0 +1,54 @@
+<ion-header>
+
+  <ion-toolbar> 
+    <ion-buttons slot="end">
+      <ion-back-button text="Home" defaultHref="home"></ion-back-button>
+    </ion-buttons>
+   
+    <ion-title>raport</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <h1></h1>
+  <ion-buttons slot="end">
+    <ion-back-button text="back" icon="add" ></ion-back-button>
+  </ion-buttons>
+  <div>
+ 
+    <ion-button size="small" color="{{show1 ? 'medium' : 'secondary'}}" (click)="show1 = !show1">{{show1 ? 'hide rapport 1' : 'show rapport 1 '}}</ion-button>
+  <ion-button size="small"  color="{{show2 ? 'medium' : 'secondary'}}" (click)="show2 = !show2">{{show2 ? 'hide rapport 2' : 'show rapport 2'}}</ion-button>
+  <ion-button  size="small" color="{{show3 ? 'medium' : 'secondary'}}" (click)="show3 = !show3">{{show3 ? 'hide rapport 3' : 'show rapport 3'}}</ion-button>
+</div>
+ <br> <div *ngIf="(show1 && show2 )||(show3 && show2 )||(show3 && show1 )" >
+ <ion-label  color='primary' > slide  rapports</ion-label>
+</div>
+ <br>
+ <ion-item>
+ <ion-slides pager="true" >
+  <ion-slide>
+ 
+    <div  *ngIf="show1" >
+      <iframe width="940px" height= "980px" src= "https://script.google.com/macros/s/AKfycbwqH7acNmRVdNV2P5TyO0Wm18erjqeerE4vkNdYzwvwI6bNBjkqcOkw3B8NnH-giEJyUg/exec?index=1" frameborder= "0" marginwidth= "0" marginheight= "0" style= "border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
+    </div>
+  </ion-slide>
+  <ion-slide>
+  
+    <div  *ngIf="show2">
+      <iframe width="640px" height= "680px" src= "https://docs.google.com/spreadsheets/d/e/2PACX-1vSByr-49t_4DLfRely4kHi2WXySwF-y9r36i75-aLb47njZ4rrGjbHPnajWWtzTiyyvMk6RhXQo3W5a/pubhtml?gid=1026767447&single=true" frameborder= "0" marginwidth= "0" marginheight= "0" style= "border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
+     
+    </div>
+  </ion-slide>
+  <ion-slide>
+   
+    <div *ngIf="show3">
+      <iframe width="640px" height= "680px" src= "https://docs.google.com/spreadsheets/d/1WfwIP18HsubgpYn7V9waBDiFHKsMaLUf4mR2-ckKuAo/edit?usp=sharing" frameborder= "0" marginwidth= "0" marginheight= "0" style= "border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
+    </div>
+  </ion-slide>
+</ion-slides>
+  
+</ion-item>
+  
+
+  
+</ion-content>
