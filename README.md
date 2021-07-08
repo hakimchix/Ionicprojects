@@ -16,7 +16,6 @@ In this Ionic + Firebase tutorial you will learn how to create an Ionic Framewor
 
 As an example we built this Ionic Framework application that allows users to log in and log out using all of the above mentioned authentication options. Once they log in, they will see a profile page with their basic profile info taken from the authentication provider.
 
-Read the complete post in https://ionicthemes.com/tutorials/about/firebase-authentication-in-ionic-framework-apps.
 
 ### Ionic Firebase Starter
 This repo is a simple ionic 5 starter app with three pages:
@@ -24,10 +23,9 @@ This repo is a simple ionic 5 starter app with three pages:
 - Sign Up
 - Profile
 
-Find more Ionic tutorials and starter apps in https://ionicthemes.com
 
-### Demo
-- [Online demo](https://ionic5-firebase-authentication.web.app)
+
+
 
 ## Install this Ionic 5 Firebase App
 ```
@@ -38,8 +36,6 @@ npm install
 ionic serve
 ```
 
-### Get a premium Ionic 5 Starter App with Firebase Integration
-If you want a ready-made example of how to use Firebase Authentication in Ionic 5 with Capacitor configurations for iOS and Android, check [Ionic 5 Full Starter App PRO](https://ionicthemes.com/product/ionic5-full-starter-app-pro-version). We spent many hours configuring and testing everything so that you don't have to.
 
 This template has more than 100 carefully designed views and components, it will help you grasp the best practices and new concepts of Ionic 5.
 
@@ -53,4 +49,3 @@ It also includes a very complete integration with Firebase which includes:
 - Firebase CRUD
 - Firebase queries
 
-<img src="https://ionicthemes.s3-us-west-2.amazonaws.com/cover_images/redesign/ionic5-full-starter-app-pro.jpg"/>
